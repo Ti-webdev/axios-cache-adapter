@@ -1,3 +1,9 @@
+# FORK for axios 0.21.x
+```sh
+npm install --save ti-axios-cache-adapter`
+```
+
+
 # :rocket: axios-cache-adapter [![Build Status](https://travis-ci.org/RasCarlito/axios-cache-adapter.svg?branch=master)](https://travis-ci.org/RasCarlito/axios-cache-adapter) [![codecov](https://codecov.io/gh/RasCarlito/axios-cache-adapter/branch/master/graph/badge.svg)](https://codecov.io/gh/RasCarlito/axios-cache-adapter) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 > Caching adapter for axios. Store request results in a configurable store to prevent unneeded network requests.
@@ -5,40 +11,38 @@
 Adapted from [superapi-cache](https://github.com/stephanebachelier/superapi-cache)
 by [@stephanebachelier](https://github.com/stephanebachelier)
 
-*Note: Per request override does not work with `axios@0.19.0` as mentioned in [this issue](https://github.com/RasCarlito/axios-cache-adapter/issues/99). Until it is fixed, `axios-cache-adapter` locks the `axios` version to `0.18.1`*
-
 ## Install
 
 Using npm
 
 ```sh
-npm install --save axios-cache-adapter
+npm install --save ti-axios-cache-adapter
 ```
 
 Or bower
 
 ```sh
-bower install --save axios-cache-adapter
+bower install --save ti-axios-cache-adapter
 ```
 
 Or from a CDN like unpkg.com
 
 ```html
-<script type="text/javascript" src="https://unpkg.com/axios-cache-adapter"></script>
+<script type="text/javascript" src="https://unpkg.com/ti-axios-cache-adapter"></script>
 ```
 
 ## Usage
 
 ### Instantiate adapter on its own
 
-You can instantiate the `axios-cache-adapter` on its own using the `setupCache()` method and then attach the adapter manually to an instance of `axios`.
+You can instantiate the `ti-axios-cache-adapter` on its own using the `setupCache()` method and then attach the adapter manually to an instance of `axios`.
 
 ```js
 // Import dependencies
 import axios from 'axios'
-import { setupCache } from 'axios-cache-adapter'
+import { setupCache } from 'ti-axios-cache-adapter'
 
-// Create `axios-cache-adapter` instance
+// Create `ti-axios-cache-adapter` instance
 const cache = setupCache({
   maxAge: 15 * 60 * 1000
 })
@@ -65,18 +69,18 @@ api({
 
 ### Instantiate axios with bound adapter
 
-You can use the `setup()` method to get an instance of `axios` pre-configured with the `axios-cache-adapter`. This will remove `axios` as a direct dependency in your code.
+You can use the `setup()` method to get an instance of `axios` pre-configured with the `ti-axios-cache-adapter`. This will remove `axios` as a direct dependency in your code.
 
 ```js
 // Import dependencies
-import { setup } from 'axios-cache-adapter'
+import { setup } from 'ti-axios-cache-adapter'
 
-// Create `axios` instance with pre-configured `axios-cache-adapter` attached to it
+// Create `axios` instance with pre-configured `ti-axios-cache-adapter` attached to it
 const api = setup({
   // `axios` options
   baseURL: 'http://some-rest.api',
 
-  // `axios-cache-adapter` options
+  // `ti-axios-cache-adapter` options
   cache: {
     maxAge: 15 * 60 * 1000
   }
@@ -96,10 +100,10 @@ api.get('/url').then(async (response) => {
 
 ### Override instance config with per request options
 
-After setting up `axios-cache-adapter` with a specific cache configuration you can override parts of that configuration on individual requests.
+After setting up `ti-axios-cache-adapter` with a specific cache configuration you can override parts of that configuration on individual requests.
 
 ```js
-import { setup } from 'axios-cache-adapter'
+import { setup } from 'ti-axios-cache-adapter'
 
 const api = setup({
   baseURL: 'https://httpbin.org',
@@ -130,16 +134,16 @@ _Note: Not all instance options can be overridden per request, see the API docum
 
 ### Use localforage as cache store
 
-You can give a `localforage` instance to `axios-cache-adapter` which will be used to store cache data instead of the default [in memory](https://github.com/RasCarlito/axios-cache-adapter/blob/master/src/memory.js) store.
+You can give a `localforage` instance to `ti-axios-cache-adapter` which will be used to store cache data instead of the default [in memory](https://github.com/RasCarlito/ti-axios-cache-adapter/blob/master/src/memory.js) store.
 
 _Note: This only works client-side because `localforage` does not work in Node.js_
 
 ```js
 import localforage from 'localforage'
 import memoryDriver from 'localforage-memoryStorageDriver'
-import { setup } from 'axios-cache-adapter'
+import { setup } from 'ti-axios-cache-adapter'
 
-// `async` wrapper to configure `localforage` and instantiate `axios` with `axios-cache-adapter`
+// `async` wrapper to configure `localforage` and instantiate `axios` with `ti-axios-cache-adapter`
 async function configure () {
   // Register the custom `memoryDriver` to `localforage`
   await localforage.defineDriver(memoryDriver)
@@ -156,15 +160,15 @@ async function configure () {
     name: 'my-cache'
   })
 
-  // Create `axios` instance with pre-configured `axios-cache-adapter` using a `localforage` store
+  // Create `axios` instance with pre-configured `ti-axios-cache-adapter` using a `localforage` store
   return setup({
     // `axios` options
     baseURL: 'http://some-rest.api',
 
-    // `axios-cache-adapter` options
+    // `ti-axios-cache-adapter` options
     cache: {
       maxAge: 15 * 60 * 1000,
-      store: forageStore // Pass `localforage` store to `axios-cache-adapter`
+      store: forageStore // Pass `localforage` store to `ti-axios-cache-adapter`
     }
   })
 }
@@ -180,12 +184,12 @@ configure().then(async (api) => {
 
 ### Use redis as cache store
 
-You can give a `RedisStore` instance to `axios-cache-adapter` which will be used to store cache data instead of the default [in memory](https://github.com/RasCarlito/axios-cache-adapter/blob/master/src/memory.js) store.
+You can give a `RedisStore` instance to `ti-axios-cache-adapter` which will be used to store cache data instead of the default [in memory](https://github.com/RasCarlito/ti-axios-cache-adapter/blob/master/src/memory.js) store.
 
 _Note: This only works server-side_
 
 ```js
-const { setup, RedisStore } = require('axios-cache-adapter')
+const { setup, RedisStore } = require('ti-axios-cache-adapter')
 const redis = require('redis')
 
 const client = redis.createClient({
@@ -195,10 +199,10 @@ const store = new RedisStore(client)
 const api = setup({
   // `axios` options
   baseURL: 'http://some-rest.api',
-  // `axios-cache-adapter` options
+  // `ti-axios-cache-adapter` options
   cache: {
     maxAge: 15 * 60 * 1000,
-    store // Pass `RedisStore` store to `axios-cache-adapter`
+    store // Pass `RedisStore` store to `ti-axios-cache-adapter`
   }
 })
 
@@ -212,9 +216,9 @@ When a response is served from cache a custom `response.request` object is creat
 ```js
 // Import dependencies
 import assert from 'assert'
-import { setup } from 'axios-cache-adapter'
+import { setup } from 'ti-axios-cache-adapter'
 
-// Create `axios` instance with pre-configured `axios-cache-adapter`
+// Create `axios` instance with pre-configured `ti-axios-cache-adapter`
 const api = setup({
   cache: {
     maxAge: 15 * 60 * 1000
@@ -242,14 +246,14 @@ exec()
 
 ### Read stale cache data on network error
 
-You can tell `axios-cache-adapter` to read stale cache data when a network error occurs using the `readOnError` option.
+You can tell `ti-axios-cache-adapter` to read stale cache data when a network error occurs using the `readOnError` option.
 
 `readOnError` can either be a `Boolean` telling cache adapter to attempt reading stale cache when any network error happens or a `Function` which receives the error and request objects and then returns a `Boolean`.
 
-By default `axios-cache-adapter` clears stale cache data automatically, this would conflict with activating the `readOnError` option, so the `clearOnStale` option should be set to `false`.
+By default `ti-axios-cache-adapter` clears stale cache data automatically, this would conflict with activating the `readOnError` option, so the `clearOnStale` option should be set to `false`.
 
 ```js
-import { setup } from 'axios-cache-adapter'
+import { setup } from 'ti-axios-cache-adapter'
 
 const api = setup({
   cache: {
@@ -297,10 +301,10 @@ async defaultInvalidate (config, request) {
 }
 ```
 
-You can customize how `axios-cache-adapter` invalidates stored cache entries by providing a custom `invalidate` function.
+You can customize how `ti-axios-cache-adapter` invalidates stored cache entries by providing a custom `invalidate` function.
 
 ```js
-import { setup } from 'axios-cache-adapter'
+import { setup } from 'ti-axios-cache-adapter'
 
 // Create cached axios instance with custom invalidate method
 const api = setup({
@@ -334,7 +338,7 @@ When you set the `readHeaders` option to `true`, the adapter will try to read `c
 
 ```js
 import assert from 'assert'
-import { setup } from 'axios-cache-adapter'
+import { setup } from 'ti-axios-cache-adapter'
 
 const api = setup({
   cache: {
@@ -498,9 +502,9 @@ Webpack is used to build [umd](https://github.com/umdjs/umd) versions of the lib
 * `cache.node.js`
 * `cache.node.min.js`
 
-A different version of `axios-cache-adapter` is generated for node and the browser due to how Webpack 4 uses a `target` to change how the UMD wrapper is generated using `global` or `window`. If you are using the library in node or in your front-end code while using a module bundler (Webpack, rollup, etc) the correct version will be picked up automatically thanks to the `"main"` and `"browser"` fields in the `package.json`.
+A different version of `ti-axios-cache-adapter` is generated for node and the browser due to how Webpack 4 uses a `target` to change how the UMD wrapper is generated using `global` or `window`. If you are using the library in node or in your front-end code while using a module bundler (Webpack, rollup, etc) the correct version will be picked up automatically thanks to the `"main"` and `"browser"` fields in the `package.json`.
 
-`axios-cache-adapter` is developped in ES6+ and uses async/await syntax. It is transpiled to ES5 using `babel` with `preset-env`.
+`ti-axios-cache-adapter` is developped in ES6+ and uses async/await syntax. It is transpiled to ES5 using `babel` with `preset-env`.
 
 ## Testing
 
@@ -520,11 +524,11 @@ npm run watch
 
 ## Browser vs Node.js
 
-`axios-cache-adapter` was designed to run in the browser. It does work in nodejs using the [in memory store](https://github.com/RasCarlito/axios-cache-adapter/blob/master/src/memory.js). But storing data in memory is not the greatests idea ever.
+`ti-axios-cache-adapter` was designed to run in the browser. It does work in nodejs using the [in memory store](https://github.com/RasCarlito/ti-axios-cache-adapter/blob/master/src/memory.js). But storing data in memory is not the greatests idea ever.
 
 You can give a `store` to override the in memory store but it has to comply with the [`localForage`](https://github.com/localForage/localForage) API and `localForage` does not work in nodejs for very good reasons that are better explained in [this issue](https://github.com/localForage/localForage/issues/57).
 
-The better choice if you want to use `axios-cache-adapter` server-side is to use a redis server with a `RedisStore` instance as explained above in the API section.
+The better choice if you want to use `ti-axios-cache-adapter` server-side is to use a redis server with a `RedisStore` instance as explained above in the API section.
 
 ## License
 

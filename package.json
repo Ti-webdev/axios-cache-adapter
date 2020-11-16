@@ -1,6 +1,6 @@
 {
-  "name": "axios-cache-adapter",
-  "version": "2.5.0",
+  "name": "ti-axios-cache-adapter",
+  "version": "2.5.1",
   "description": "Caching adapter for axios",
   "homepage": "https://github.com/RasCarlito/axios-cache-adapter",
   "author": {
@@ -71,7 +71,7 @@
     "standard": "^14.3.1",
     "webpack": "^4.1.1",
     "webpack-cli": "^3.1.1",
-    "axios": "0.21.0"
+    "axios": "^0.21.0"
   },
   "dependencies": {
     "cache-control-esm": "1.0.0",
@@ -80,7 +80,7 @@
     "whatwg-url": "^7.1.0"
   },
   "peerDependencies": {
-    "axios": "0.21.0"
+    "axios": "^0.21.0"
   },
   "size-limit": [
     {
